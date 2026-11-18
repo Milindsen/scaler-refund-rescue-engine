@@ -1,0 +1,9 @@
+dist/
+.local/
+.env
+*.tar.gz
+node_modules/
+.vercel/
+public/
+.env.*
+!.env.example
