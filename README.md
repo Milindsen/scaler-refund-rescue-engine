@@ -1,6 +1,17 @@
-# Rescue — Scaler Refund Rescue Engine
+# Project FIRST-14 | A learner retention proposal for Scaler
 
-An independent, working learner-retention prototype for a Program Manager case study. It is not an official Scaler product. All 1,000 identities, signals and outcomes are synthetic.
+I propose three changes: clarify course expectations before payment, help learners complete their first assessed task by Day 7, and fix early problems before they lead to refund requests.
+
+Rescue is my prototype for the third change. For example, when a learner struggles with an early assignment, the demo offers a practice exercise and routes the case to a specialist if the learner still needs help. Learners can request a refund at any point in the demo, and help is optional.
+
+The case gives 1,000 monthly enrolments and a roughly 15% request rate. I would test whether that rate moves toward 12% while more learners stay active at Day 30. Demo records and outcomes are synthetic.
+
+## Three-minute walkthrough
+
+1. Start with the case baseline and explain the 12% pilot target.
+2. Open Aarav’s case. Show why he was flagged, offer the practice task, and enter 16 as the learner. Return to the dashboard to show the recorded result.
+3. Open Vikram’s refund request to show that help is optional. Then show how Finance reviews a request and how Meera can choose to continue while her original request remains on record.
+4. Route Ananya’s expectations mismatch to Sales. Close with the two pilot outcomes: in-window refund requests and active learning at Day 30.
 
 ## Run locally
 
@@ -69,7 +80,7 @@ flowchart TD
 
 Reviewed 18 November 2026: [India-facing Scaler terms](https://fp.scaler.com/terms/) and [Scaler's policy explanation](https://www.scaler.com/topics/is-scaler-legit/) describe a 14-day window from the first class, including meet-and-greet. [Other regional terms](https://www.scaler.com/terms/) include different fee language. Applicable signed program terms must govern actual eligibility. The prototype makes no refund eligibility, bank-transfer or financing decisions.
 
-The assignment supplies 1,000 enrolments, 150 unique requesters and a 15% baseline. A 12% target means 120 requesters / 30 fewer requests; it is a hypothesis, never an achieved result. The seed's uniform cause distribution is an assumption, editable in `src/domain.mjs` (`causes` and seed cause selection). Policy windows, risk weights and the target are editable in the UI. The demo clock is fixed at 18 Nov 2026 for repeatable deadlines; action audit timestamps use actual server time.
+The assignment gives 1,000 monthly enrolments and about 15% requesting refunds, or roughly 150. The demo seeds exactly 150 unique requesters. A 12% target means 120 requesters / 30 fewer requests; it is a hypothesis, never an achieved result. The seed's uniform cause distribution is an assumption, editable in `src/domain.mjs` (`causes` and seed cause selection). Policy windows, risk weights and the target are editable in the UI. The demo clock is fixed at 18 Nov 2026 for repeatable deadlines; action audit timestamps use actual server time.
 
 Day-30 active status in seed records is synthetic future follow-up data, not observed activity from the current November cohort. Deterministic treatment assignment is confounded with cohort and is not a real randomized experiment. No causal lift is claimed.
 
@@ -81,7 +92,7 @@ Day-30 active status in seed records is synthetic future follow-up data, not obs
 
 The tracked `.openai/hosting.json` identifies the private Sites project and D1 binding. Sites publishes the pushed source with `dist/server/index.js`, hosting metadata and the SQL migration in `drizzle/`. The provider applies migrations before running the Worker. There are no secrets in this repository.
 
-To use Vercel instead: port `worker.fetch` into a server route, replace the D1 adapter with managed PostgreSQL or an HTTP SQLite provider, apply the schema and provide session-derived authorization. Vercel uses the included api/index.mjs handler and durable PostgreSQL adapter; no records are stored on its ephemeral filesystem.
+For Vercel, follow [the deployment guide](VERCEL.md). The included API handler uses managed PostgreSQL.
 
 Public source: https://github.com/Milindsen/scaler-refund-rescue-engine
 
@@ -97,14 +108,3 @@ No LMS, CRM, email, payment or financing integration. No LLM or external AI clas
 4. Run a concurrent randomized pilot within program/cohort strata. Pre-register request-rate and Day-30 outcomes, use intention-to-treat analysis and confidence intervals, and monitor refund delays and negative feedback.
 5. Add monitoring, rate limits, backup/restore testing, accessibility audit, load tests and security review before real learner use.
 
-## Three-minute presentation
-
-**0:00–0:30:** Open Command center. Explain the assignment baseline and the hypothetical 12% target. Emphasize that the data is synthetic and the product connects signals to useful support.
-
-**0:30–1:25:** Click “Resolve a refund risk.” Inspect Aarav's signals. Offer the academic intervention, open the learner experience, enter `16`, and verify. Return to the dashboard to show the saved resolution and lower current risk. Explain that this proves workflow functionality, not a prevented refund.
-
-**1:25–2:10:** Select Vikram in the learner portal. Show the existing request and that help is optional. Select Meera; record voluntary continuation. The original request remains visible. Switch to Finance to move an acknowledged request to Under review with a note.
-
-**2:10–2:35:** Open Ananya's expectations mismatch. Route it to Sales, preserving the handoff discrepancy and intervention history. Avoid automated promises.
-
-**2:35–3:00:** Open Pilot & impact. Explain concurrent randomization, Day-30 activity and complaint guardrails. Close with the mechanism: identify friction sooner, resolve specific problems, escalate with context, and measure sustained learning without obstructing refunds.
